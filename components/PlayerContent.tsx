@@ -58,7 +58,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
         {
             volume: volume,
             onplay: () => setIsPlaying(true),
-            onend: () => {
+            unend: () => {
                 setIsPlaying(false);
                 onPlayNext();
             },
@@ -76,12 +76,13 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
         }
     }, [sound]);
 
-
     const handlePlay = () => {
-        if (!isPlaying) {
-            play();
+        if (isPlaying) {
+            pause(); // this will pause the audio
+            setIsPlaying(false);
         } else {
-            pause();
+            play(); // this will play the audio
+            setIsPlaying(true);
         }
     };
 
