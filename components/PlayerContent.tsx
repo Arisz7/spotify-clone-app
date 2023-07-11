@@ -79,10 +79,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     const handlePlay = () => {
         if (isPlaying) {
             pause(); // this will pause the audio
-            setIsPlaying(false);
+            return setIsPlaying(false);
         } else {
             play(); // this will play the audio
-            setIsPlaying(true);
+            return setIsPlaying(true);
         }
     };
 
