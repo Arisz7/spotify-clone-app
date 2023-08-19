@@ -11,34 +11,41 @@ const useSongById = (id?: string) => {
 
   useEffect(() => {
     if (!id) {
+      console.log("No song ID provided.");
       return;
     }
 
     setIsLoading(true);
 
     const fetchSong = async () => {
+      console.log("Fetching song data...");
       const { data, error } = await supabaseClient
-        .from('songs')
-        .select('*')
-        .eq('id', id)
+        .from("songs")
+        .select("*")
+        .eq("id", id)
         .single();
 
       if (error) {
+        console.log("Error fetching song data:", error);
         setIsLoading(false);
         return toast.error(error.message);
       }
-      
+
+      console.log("Song data fetched:", data);
       setSong(data as Song);
       setIsLoading(false);
-    }
+    };
 
     fetchSong();
   }, [id, supabaseClient]);
 
-  return useMemo(() => ({
-    isLoading,
-    song
-  }), [isLoading, song]);
+  return useMemo(() => {
+    console.log("Returning memoized values:", { isLoading, song });
+    return {
+      isLoading,
+      song,
+    };
+  }, [isLoading, song]);
 };
 
 export default useSongById;
